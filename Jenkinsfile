@@ -1,33 +1,28 @@
 pipeline {
     agent any
-
+    parameters {
+        string defaultValue: 'dylan', name: 'BRANCH_NAME'
+        string defaultValue: 'dylan', name: 'IMAGE_NAME'
+        string defaultValue: 'dylan', name: 'PORT_NUMBER'
+   }
     stages {
-        stage('Update System') {
+        stage('Clone Repository') {
             steps {
-                // Add your steps to update the system here
-                sh 'echo "Updating system..."'
+                git branch: "${params.BRANCH_NAME}", 
+                credentialsId: 'github-dylan', 
+                url: 'https://github.com/chrisdylan237/Demo1.git'
             }
         }
-        stage('Create Folder: Dylan') {
+        
+        stage('Build Docker Image') {
             steps {
-                script {
-                    // Create a folder named 'dylan'
-                    dir('dylan') {
-                        sh 'mkdir dylan'
-                        echo 'Folder "dylan" created'
-                    }
-                }
+                sh 'docker build -t ${params.IMAGE_NAME} .'
             }
         }
-        stage('Create Folder: Chris') {
+        
+        stage('Deploy Application') {
             steps {
-                script {
-                    // Create a folder named 'chris'
-                    dir('chris') {
-                        sh 'mkdir chris'
-                        echo 'Folder "chris" created'
-                    }
-                }
+                sh 'docker run -itd -p ${params.PORT_NUMBER}:80 ${params.IMAGE_NAME}'
             }
         }
     }
