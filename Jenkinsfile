@@ -22,7 +22,7 @@ pipeline {
                 script {
                     // Connect to remote server and copy files
                     sh """
-                        sshpass -p '${params.PASSWORD}' scp -r * ${params.USERNAME}@${params.SERVER_DNS}:.
+                        scp -r * ${params.USERNAME}@${params.SERVER_DNS}:.
                     """
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     // SSH to remote server and list files
                     sh """
-                        sshpass -p '${params.PASSWORD}' ssh ${params.USERNAME}@${params.SERVER_DNS} 'ls'
+                        ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'ls'
                     """
                 }
             }
@@ -44,7 +44,7 @@ pipeline {
                 script {
                     // SSH to remote server and deploy application with docker-compose
                     sh """
-                        sshpass -p '${params.PASSWORD}' ssh ${params.USERNAME}@${params.SERVER_DNS} 'docker-compose up -d'
+                        ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'docker-compose up -d'
                     """
                 }
             }
