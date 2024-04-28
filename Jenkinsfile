@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     // SSH to remote server and deploy application with docker-compose
-                    sh "sshpass -p '${params.PASSWORD}' ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'docker-compose up -d'"
+                    sh "sshpass -p '${params.PASSWORD}' ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'sudo docker-compose up -d'"
                 }
             }
         }
