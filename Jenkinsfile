@@ -5,12 +5,15 @@ pipeline {
         string(name: 'USERNAME', description: 'Username for remote server')
         password(name: 'PASSWORD', description: 'Password for remote server')
         string(name: 'SERVER_DNS', description: 'DNS of the remote server')
+        string(defaultValue: 'dylan', name: 'BRANCH_NAME')
+
     }
     
     stages {
         stage('Git Clone') {
             steps {
-                git 'https://github.com/chrisdylan237/Demo1.git'
+                git branch: "${params.BRANCH_NAME}", url: 'https://github.com/chrisdylan237/Demo1.git'
+
             }
         }
         
