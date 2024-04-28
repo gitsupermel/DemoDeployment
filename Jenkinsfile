@@ -11,12 +11,18 @@ pipeline {
     
     stages {
         stage('Git Clone') {
+            when {
+                expression { params.DELETE_APPLICATION != 'yes' }
+            }
             steps {
                 git branch: "${params.BRANCH_NAME}", url: 'https://github.com/chrisdylan237/Demo1.git'
             }
         }
         
         stage('Connect to Remote Server and Copy Files') {
+            when {
+                expression { params.DELETE_APPLICATION != 'yes' }
+            }
             steps {
                 script {
                     // Connect to remote server and copy files
@@ -26,6 +32,9 @@ pipeline {
         }
         
         stage('Check Files on Remote Server') {
+            when {
+                expression { params.DELETE_APPLICATION != 'yes' }
+            }
             steps {
                 script {
                     // SSH to remote server and list files
@@ -35,6 +44,9 @@ pipeline {
         }
         
         stage('Deploy Application') {
+            when {
+                expression { params.DELETE_APPLICATION != 'yes' }
+            }
             steps {
                 script {
                     // SSH to remote server and deploy application with docker-compose
