@@ -13,7 +13,6 @@ pipeline {
         stage('Git Clone') {
             steps {
                 git branch: "${params.BRANCH_NAME}", url: 'https://github.com/chrisdylan237/Demo1.git'
-
             }
         }
         
@@ -21,9 +20,7 @@ pipeline {
             steps {
                 script {
                     // Connect to remote server and copy files
-                    sh """
-                        scp -o StrictHostKeyChecking=no -r * ${params.USERNAME}@${params.SERVER_DNS}:.
-                    """
+                    sh "sshpass -p '${params.PASSWORD}' scp -o StrictHostKeyChecking=no -r * ${params.USERNAME}@${params.SERVER_DNS}:."
                 }
             }
         }
@@ -32,9 +29,7 @@ pipeline {
             steps {
                 script {
                     // SSH to remote server and list files
-                    sh """
-                        ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'ls'
-                    """
+                    sh "sshpass -p '${params.PASSWORD}' ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'ls'"
                 }
             }
         }
@@ -43,9 +38,7 @@ pipeline {
             steps {
                 script {
                     // SSH to remote server and deploy application with docker-compose
-                    sh """
-                        ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'docker-compose up -d'
-                    """
+                    sh "sshpass -p '${params.PASSWORD}' ssh -o StrictHostKeyChecking=no ${params.USERNAME}@${params.SERVER_DNS} 'docker-compose up -d'"
                 }
             }
         }
