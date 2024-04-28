@@ -22,7 +22,7 @@ pipeline {
                 script {
                     // Connect to remote server and copy files
                     sh """
-                        scp -r * ${params.USERNAME}@${params.SERVER_DNS}:.
+                        scp -o StrictHostKeyChecking=no -r * ${params.USERNAME}@${params.SERVER_DNS}:.
                     """
                 }
             }
