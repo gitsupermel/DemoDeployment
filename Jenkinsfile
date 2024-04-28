@@ -3,7 +3,7 @@ pipeline {
     
     parameters {
         string(name: 'USERNAME', description: 'Username for remote server')
-        password(name: 'PASSWORD', description: 'Password for remote server')
+        string(name: 'PASSWORD', description: 'Password for remote server')
         string(name: 'SERVER_DNS', description: 'DNS of the remote server')
         string(name: 'BRANCH_NAME', description: 'Enter git branch name')
 
