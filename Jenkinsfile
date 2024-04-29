@@ -50,7 +50,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} ls "
+                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} 'ls'"
                 }
             }
         }
