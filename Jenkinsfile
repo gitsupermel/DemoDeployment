@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "sshpass -p '${params.password}' scp -o StrictHostKeyChecking=no -r ./ ${params.username}@${params.server_dns}:~/"
+                    sh "sshpass -p '${params.password}' scp -o StrictHostKeyChecking=no -r ./ ${params.username}@${params.server_dns}:."
                 }
             }
         }
@@ -50,7 +50,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} ls ~/"
+                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} ls "
                 }
             }
         }
@@ -63,7 +63,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} 'cd ~/ && docker-compose up -d'"
+                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} 'sudo docker-compose up -d'"
                 }
             }
         }
@@ -76,7 +76,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} 'cd ~/ && docker-compose down --rmi all --volumes --remove-orphans'"
+                    sh "sshpass -p '${params.password}' ssh -o StrictHostKeyChecking=no ${params.username}@${params.server_dns} 'sudo docker-compose down --rmi all --volumes --remove-orphans'"
                 }
             }
         }
