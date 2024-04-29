@@ -10,6 +10,12 @@ pipeline {
     }
     
     stages {
+        stage('Clean Jenkins Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        
         stage('Clone from GitHub') {
             when {
                 expression {
@@ -31,9 +37,7 @@ pipeline {
             }
             steps {
                 script {
-                     
-                        sh "sshpass -p $PASS scp -r ./ ${params.username}@${params.server_dns}:~/"
-                    
+                    sh "sshpass -p $PASS scp -r ./ ${params.username}@${params.server_dns}:~/"
                 }
             }
         }
