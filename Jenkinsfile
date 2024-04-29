@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "sshpass -p $PASS scp -r ./ ${params.username}@${params.server_dns}:~/"
+                    sh "sshpass -p ${params.password} scp -r ./ ${params.username}@${params.server_dns}:~/"
                 }
             }
         }
